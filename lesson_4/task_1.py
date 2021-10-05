@@ -22,6 +22,11 @@ def func_1(nums):
     return new_arr
 
 
-arr = [randint(0, 100) for i in range(1000)]
-print(timeit('func_1(arr)', globals=globals(), number=10000))
+def func_2(nums):
+    return [i for i in range(len(nums)) if nums[i] % 2 == 0]
 
+
+arr = [randint(0, 100) for i in range(1000)]
+
+print(timeit('func_1(arr)', globals=globals(), number=10000))   # 0.8458025
+print(timeit('func_2(arr)', globals=globals(), number=10000))   # 0.6280077000000001
