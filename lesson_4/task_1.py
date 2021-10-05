@@ -22,11 +22,15 @@ def func_1(nums):
     return new_arr
 
 
+# оптимизированная функция. сделала через списковое включение.
+# она работает быстрее, потому что ей не надо использовать аппенд (наверное)
+# она просто проходит по списку и берет всё, что ей подходит.
+# помимо более быстрой работы, функция занимает намного меньше места
 def func_2(nums):
     return [i for i in range(len(nums)) if nums[i] % 2 == 0]
 
 
 arr = [randint(0, 100) for i in range(1000)]
 
-print(timeit('func_1(arr)', globals=globals(), number=10000))   # 0.8458025
-print(timeit('func_2(arr)', globals=globals(), number=10000))   # 0.6280077000000001
+print(timeit('func_1(arr)', globals=globals(), number=10000))   # 0.9170441
+print(timeit('func_2(arr)', globals=globals(), number=10000))   # 0.6803805
