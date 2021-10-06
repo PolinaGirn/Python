@@ -21,8 +21,13 @@ import hashlib
 
 salt = uuid4().hex
 
+
+def opt(text):
+    return hashlib.sha256(salt.encode() + text.encode()).hexdigest()
+
+
 base = {
-    'admin': hashlib.sha256(salt.encode() + 'admin'.encode()).hexdigest()
+    'admin': opt('admin')
 }
 
 
@@ -33,7 +38,7 @@ def func(login=None):
     if login in base:
         while True:
             password = input(f'введите пароль, {login}: ')
-            h = hashlib.sha256(salt.encode() + password.encode()).hexdigest()
+            h = opt(password)
             if h == base[login]:
                 print('всё круто, пароль верный!')
                 break
@@ -42,10 +47,10 @@ def func(login=None):
     else:
         print('вы новый пользователь, пройдите регистрацию:')
         password = input(f'введите пароль, {login}: ')
-        h = hashlib.sha256(salt.encode() + password.encode()).hexdigest()
+        h = opt(password)
         while True:
             password = input('повторите пароль: ')
-            if h == hashlib.sha256(salt.encode() + password.encode()).hexdigest():
+            if h == opt(password):
                 base[login] = h
                 print('всё круто, вы зарегестрированы!')
                 break
